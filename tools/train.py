@@ -70,6 +70,7 @@ def train():
     fastrcnn_total_loss = fastrcnn_cls_loss + fastrcnn_loc_loss
 
     total_loss = rpn_total_loss + fastrcnn_total_loss + weight_decay_loss
+    # ____________________________________________________________________________________________________build loss
 
     # ---------------------------------------------------------------------------------------------------add summary
     tf.summary.scalar('RPN_LOSS/cls_loss', rpn_cls_loss)
@@ -85,6 +86,8 @@ def train():
 
     tf.summary.image('img/gtboxes', gtboxes_in_img)
     tf.summary.image('img/dets', dets_in_img)
+
+    # ___________________________________________________________________________________________________add summary
 
     global_step = slim.get_or_create_global_step()
     lr = tf.train.piecewise_constant(global_step,
@@ -104,6 +107,7 @@ def train():
         with tf.name_scope('clip_gradients'):
             gradients = slim.learning.clip_gradient_norms(gradients,
                                                           cfgs.GRADIENT_CLIPPING_BY_NORM)
+    # _____________________________________________________________________________________________compute gradients
 
     # train_op
     train_op = optimizer.apply_gradients(grads_and_vars=gradients,
@@ -148,6 +152,12 @@ def train():
                         sess.run([global_step, img_name_batch, rpn_location_loss, rpn_cls_loss,
                                   rpn_total_loss, fastrcnn_loc_loss, fastrcnn_cls_loss,
                                   fastrcnn_total_loss, total_loss, train_op])
+
+                    # final_boxes_r, _final_scores_r, _final_category_r = sess.run([final_boxes_r, final_scores_r, final_category_r])
+                    # print('*'*100)
+                    # print(_final_boxes_r)
+                    # print(_final_scores_r)
+                    # print(_final_category_r)
 
                     end = time.time()
                     print(""" {}: step{}    image_name:{} |\t

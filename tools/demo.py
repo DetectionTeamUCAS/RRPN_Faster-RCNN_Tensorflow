@@ -249,6 +249,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 if __name__ == "__main__":
     # args = parse_args()
     # print('Called with args:')
@@ -257,15 +258,15 @@ if __name__ == "__main__":
     # os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 
-    file_paths = get_file_paths_recursive('/mnt/USBB/gx/DOTA/images/', '.png')
+    file_paths = get_file_paths_recursive('/root/userfolder/DOTA/test/', '.png')
 
     det_net = build_whole_network.DetectionNetwork(base_network_name=cfgs.NET_NAME,
                                                    is_training=False)
 
     # inference(det_net, args.des_folder, args.h_len, args.w_len,
     #            args.h_overlap, args.w_overlap, False)
-    inference(det_net, file_paths, '/mnt/USBB/gx/R2CNN_Tensorflow/tools/demo/', 800, 800,
-              100, 100, False)
+    inference(det_net, file_paths, '/root/userfolder/yx/R2CNN_Attention/tools/demo/', 800, 800,
+              200, 200, False)
 
 
 

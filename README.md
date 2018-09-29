@@ -1,4 +1,4 @@
-# RRPN_Faster_RCNN_Tensorflow
+# R2CNN_Attention_Tensorflow
 
 ## Abstract
 This is a tensorflow re-implementation of [RRPN: Arbitrary-Oriented Scene Text Detection via Rotation Proposals](https://arxiv.org/pdf/1703.01086).      
@@ -45,14 +45,15 @@ Some relevant achievements based on this code.
 2、cuda8.0     
 3、python2.7 (anaconda2 recommend)    
 4、[opencv(cv2)](https://pypi.org/project/opencv-python/) 
+5、[tfplot](https://github.com/wookayin/tensorflow-plot)  
 
 ## Download Model
 1、please download [resnet50_v1](http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz)、[resnet101_v1](http://download.tensorflow.org/models/resnet_v1_101_2016_08_28.tar.gz) pre-trained models on Imagenet, put it to data/pretrained_weights.     
-2、please download [mobilenet_v2](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.0_224.tgz) pre-trained model on Imagenet, put it to data/pretrained_weights/mobilenet.     
+2、please download [mobilenet_v2](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.0_224.tgz) pre-trained model on Imagenet, put it to data/pretrained_weights/mobilenet.
 3、please download [trained model](https://github.com/DetectionTeamUCAS/Models/tree/master/RRPN_Faster-RCNN_Tensorflow) by this project, put it to output/trained_weights.
 
 ## Data Prepare
-1、please download [DOTA](https://captain-whu.github.io/DOTA/dataset.html)      
+1、please download [DOTA](https://captain-whu.github.io/DOTA/dataset.html)
 2、crop data, reference:
 ```  
 cd $PATH_ROOT/data/io/DOTA

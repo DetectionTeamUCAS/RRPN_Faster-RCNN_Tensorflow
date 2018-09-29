@@ -5,14 +5,14 @@ import tensorflow as tf
 
 
 # ------------------------------------------------
-VERSION = 'RRPN_20180520_DOTA_v1'
+VERSION = 'RRPN_20180901_DOTA_v1'
 NET_NAME = 'resnet_v1_101'
 ADD_BOX_IN_TENSORBOARD = True
 # ---------------------------------------- System_config
 ROOT_PATH = os.path.abspath('../')
 print(20*"++--")
 print(ROOT_PATH)
-GPU_GROUP = "0"
+GPU_GROUP = "2"
 SHOW_TRAIN_INFO_INTE = 10
 SMRY_ITER = 100
 SAVE_WEIGHTS_INTE = 2000
@@ -57,8 +57,8 @@ GRADIENT_CLIPPING_BY_NORM = None   # 10.0  if None, will not clip
 EPSILON = 1e-5
 MOMENTUM = 0.9
 LR = 0.0003  # 0.0003
-DECAY_STEP = [60000, 120000]  # 90000, 120000
-MAX_ITERATION = 200000
+DECAY_STEP = [100000, 200000]  # 90000, 120000
+MAX_ITERATION = 300000
 
 # -------------------------------------------- Data_preprocess_config
 DATASET_NAME = 'DOTA_TOTAL'  # 'ship', 'spacenet', 'pascal', 'coco'
@@ -90,7 +90,7 @@ RPN_IOU_POSITIVE_THRESHOLD = 0.7
 RPN_IOU_NEGATIVE_THRESHOLD = 0.3
 TRAIN_RPN_CLOOBER_POSITIVES = False
 
-RPN_MINIBATCH_SIZE = 256
+RPN_MINIBATCH_SIZE = 512
 RPN_POSITIVE_RATE = 0.5
 RPN_NMS_IOU_THRESHOLD = 0.7
 RPN_TOP_K_NMS_TRAIN = 12000
@@ -105,13 +105,13 @@ ROI_SIZE = 14
 ROI_POOL_KERNEL_SIZE = 2
 USE_DROPOUT = False
 KEEP_PROB = 1.0
-SHOW_SCORE_THRSHOLD = 0.0  # only show in tensorboard
+SHOW_SCORE_THRSHOLD = 0.001  # only show in tensorboard
 
-FAST_RCNN_NMS_IOU_THRESHOLD = 0.1  # 0.6
+FAST_RCNN_NMS_IOU_THRESHOLD = 0.2  # 0.6
 FAST_RCNN_NMS_MAX_BOXES_PER_CLASS = 150
 FAST_RCNN_IOU_POSITIVE_THRESHOLD = 0.4
 FAST_RCNN_IOU_NEGATIVE_THRESHOLD = 0.0   # 0.1 < IOU < 0.5 is negative
-FAST_RCNN_MINIBATCH_SIZE = 256  # if is -1, that is train with OHEM
+FAST_RCNN_MINIBATCH_SIZE = 512  # if is -1, that is train with OHEM
 FAST_RCNN_POSITIVE_RATE = 0.35
 
 ADD_GTBOXES_TO_TRAIN = False
