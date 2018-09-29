@@ -1,4 +1,4 @@
-# R2CNN_Attention_Tensorflow
+# RRPN_Faster_RCNN_Tensorflow
 
 ## Abstract
 This is a tensorflow re-implementation of [RRPN: Arbitrary-Oriented Scene Text Detection via Rotation Proposals](https://arxiv.org/pdf/1703.01086).      
@@ -36,8 +36,8 @@ Some relevant achievements based on this code.
 |[R-FCN](http://papers.nips.cc/paper/6465-r-fcn-object-detection-via-region-based-fully-convolutional-networks)|26.79|37.8|38.21|3.64|37.26|6.74|2.6|5.59|22.85|46.93|66.04|33.37|47.15|10.6|25.19|17.96|
 |[FR-H](https://ieeexplore.ieee.org/abstract/document/7485869/)|36.29|47.16|61|9.8|51.74|14.87|12.8|6.88|56.26|59.97|57.32|47.83|48.7|8.23|37.25|23.05|
 |[FR-O](https://arxiv.org/abs/1711.10398)|52.93|79.09|69.12|17.17|63.49|34.2|37.16|36.2|89.19|69.6|58.96|49.4|52.52|46.69|44.8|46.3|
-|[R2CNN](https://github.com/DetectionTeamUCAS/R2CNN_Faster-RCNN_Tensorflow)|60.67|80.94|65.75|35.34|67.44|59.92|**50.91**|55.81|**90.67**|66.92|72.39|55.06|52.23|55.14|53.35|48.22|
-|[RRPN](https://github.com/DetectionTeamUCAS/RRPN_Faster-RCNN_Tensorflow)|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+|[R2CNN](https://github.com/DetectionTeamUCAS/R2CNN_Faster-RCNN_Tensorflow)|60.67|80.94|65.75|35.34|67.44|59.92|50.91|55.81|90.67|66.92|72.39|55.06|52.23|55.14|53.35|48.22|
+|[RRPN](https://github.com/DetectionTeamUCAS/RRPN_Faster-RCNN_Tensorflow)|61.01|88.52|71.20|31.66|59.30|51.85|**56.19**|57.25|**90.81**|72.84|67.38|56.69|52.84|53.08|51.94|53.58|
 |[Current improvement]()|**68.01**|**89.43**|**81.18**|**42.68**|**70.28**|**63.74**|50.15|**62.76**|90.21|**76.17**|**83.57**|**58.53**|**61.06**|**63.33**|**66.30**|**60.68**|
 
 ## Requirements
@@ -45,15 +45,14 @@ Some relevant achievements based on this code.
 2、cuda8.0     
 3、python2.7 (anaconda2 recommend)    
 4、[opencv(cv2)](https://pypi.org/project/opencv-python/) 
-5、[tfplot](https://github.com/wookayin/tensorflow-plot)  
 
 ## Download Model
 1、please download [resnet50_v1](http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz)、[resnet101_v1](http://download.tensorflow.org/models/resnet_v1_101_2016_08_28.tar.gz) pre-trained models on Imagenet, put it to data/pretrained_weights.     
-2、please download [mobilenet_v2](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.0_224.tgz) pre-trained model on Imagenet, put it to data/pretrained_weights/mobilenet.
+2、please download [mobilenet_v2](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.0_224.tgz) pre-trained model on Imagenet, put it to data/pretrained_weights/mobilenet.     
 3、please download [trained model](https://github.com/DetectionTeamUCAS/Models/tree/master/RRPN_Faster-RCNN_Tensorflow) by this project, put it to output/trained_weights.
 
 ## Data Prepare
-1、please download [DOTA](https://captain-whu.github.io/DOTA/dataset.html)
+1、please download [DOTA](https://captain-whu.github.io/DOTA/dataset.html)      
 2、crop data, reference:
 ```  
 cd $PATH_ROOT/data/io/DOTA
