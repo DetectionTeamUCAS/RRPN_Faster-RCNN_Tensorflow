@@ -31,10 +31,8 @@ def eval_with_plac(img_dir, det_net, num_imgs, image_ext, draw_imgs=False):
     img_batch = short_side_resize_for_inference_data(img_tensor=img_batch,
                                                      target_shortside_len=cfgs.IMG_SHORT_SIDE_LEN)
 
-    det_boxes_h, det_scores_h, det_category_h, \
-    det_boxes_r, det_scores_r, det_category_r = det_net.build_whole_detection_network(
-        input_img_batch=img_batch,
-        gtboxes_h_batch=None, gtboxes_r_batch=None)
+    det_boxes_r, det_scores_r, det_category_r = det_net.build_whole_detection_network(input_img_batch=img_batch,
+                                                                                      gtboxes_batch=None)
 
     init_op = tf.group(
         tf.global_variables_initializer(),
@@ -64,8 +62,7 @@ def eval_with_plac(img_dir, det_net, num_imgs, image_ext, draw_imgs=False):
             start = time.time()
             resized_img, det_boxes_r_, det_scores_r_, det_category_r_ = \
                 sess.run(
-                    [img_batch, det_boxes_h, det_scores_h, det_category_h,
-                     det_boxes_r, det_scores_r, det_category_r],
+                    [img_batch, det_boxes_r, det_scores_r, det_category_r],
                     feed_dict={img_plac: raw_img}
                 )
             end = time.time()

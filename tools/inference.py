@@ -29,10 +29,8 @@ def inference(det_net, data_dir):
     img_batch = short_side_resize_for_inference_data(img_tensor=img_batch,
                                                      target_shortside_len=cfgs.IMG_SHORT_SIDE_LEN)
 
-    det_boxes_h, det_scores_h, det_category_h, \
     det_boxes_r, det_scores_r, det_category_r = det_net.build_whole_detection_network(input_img_batch=img_batch,
-                                                                                      gtboxes_h_batch=None,
-                                                                                      gtboxes_r_batch=None)
+                                                                                      gtboxes_batch=None)
 
     init_op = tf.group(
         tf.global_variables_initializer(),
@@ -60,11 +58,9 @@ def inference(det_net, data_dir):
             # raw_h, raw_w = raw_img.shape[0], raw_img.shape[1]
 
             start = time.time()
-            resized_img, det_boxes_h_, det_scores_h_, det_category_h_, \
-            det_boxes_r_, det_scores_r_, det_category_r_ = \
+            resized_img, det_boxes_r_, det_scores_r_, det_category_r_ = \
                 sess.run(
-                    [img_batch, det_boxes_h, det_scores_h, det_category_h,
-                     det_boxes_r, det_scores_r, det_category_r],
+                    [img_batch, det_boxes_r, det_scores_r, det_category_r],
                     feed_dict={img_plac: raw_img}
                 )
             end = time.time()
@@ -76,18 +72,12 @@ def inference(det_net, data_dir):
             #                                                r[4], r[5], r[6], r[7]))
             # f.close()
 
-            det_detections_h = draw_box_in_img.draw_box_cv(np.squeeze(resized_img, 0),
-                                                           boxes=det_boxes_h_,
-                                                           labels=det_category_h_,
-                                                           scores=det_scores_h_)
             det_detections_r = draw_box_in_img.draw_rotate_box_cv(np.squeeze(resized_img, 0),
                                                                   boxes=det_boxes_r_,
                                                                   labels=det_category_r_,
                                                                   scores=det_scores_r_)
             save_dir = os.path.join(cfgs.INFERENCE_SAVE_PATH, cfgs.VERSION)
             tools.mkdir(save_dir)
-            cv2.imwrite(save_dir + '/' + a_img_name + '_h.jpg',
-                        det_detections_h)
             cv2.imwrite(save_dir + '/' + a_img_name + '_r.jpg',
                         det_detections_r)
             view_bar('{} cost {}s'.format(a_img_name, (end - start)), i + 1, len(imgs))

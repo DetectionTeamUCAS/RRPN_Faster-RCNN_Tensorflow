@@ -94,11 +94,11 @@ python setup.py build_ext --inplace
 **Select a configuration file in the folder (libs/configs/) and copy its contents into cfgs.py, then download the corresponding [weights](https://github.com/DetectionTeamUCAS/Models/tree/master/RRPN_Faster-RCNN_Tensorflow).**      
 
 ```   
-python demo_rh.py --src_folder='/PATH/TO/DOTA/IMAGES_ORIGINAL/' 
-                  --image_ext='.png' 
-                  --des_folder='/PATH/TO/SAVE/RESULTS/' 
-                  --save_res=False
-                  --gpu='0'
+python demo.py --src_folder='/PATH/TO/DOTA/IMAGES_ORIGINAL/' 
+               --image_ext='.png' 
+               --des_folder='/PATH/TO/SAVE/RESULTS/' 
+               --save_res=False
+               --gpu='0'
 ```
 
 ## Eval
