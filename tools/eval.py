@@ -19,6 +19,7 @@ from libs.networks import build_whole_network
 from libs.val_libs import voc_eval_r
 from libs.box_utils import draw_box_in_img
 from libs.label_name_dict.pascal_dict import LABEl_NAME_MAP, NAME_LABEL_MAP
+from libs.box_utils.coordinate_convert import forward_convert, back_forward_convert
 from help_utils import tools
 
 
@@ -63,8 +64,7 @@ def eval_with_plac(img_dir, det_net, num_imgs, image_ext, draw_imgs=False):
             resized_img, det_boxes_r_, det_scores_r_, det_category_r_ = \
                 sess.run(
                     [img_batch, det_boxes_r, det_scores_r, det_category_r],
-                    feed_dict={img_plac: raw_img}
-                )
+                    feed_dict={img_plac: raw_img})
             end = time.time()
             # print("{} cost time : {} ".format(img_name, (end - start)))
             if draw_imgs:
@@ -79,13 +79,14 @@ def eval_with_plac(img_dir, det_net, num_imgs, image_ext, draw_imgs=False):
                 cv2.imwrite(save_dir + '/' + a_img_name + '_r.jpg',
                             det_detections_r[:, :, ::-1])
 
+            resized_h, resized_w = resized_img.shape[1], resized_img.shape[2]
+            det_boxes_r_ = forward_convert(det_boxes_r_, False)
+            det_boxes_r_[:, 0::2] *= (raw_w / resized_w)
+            det_boxes_r_[:, 1::2] *= (raw_h / resized_h)
+            det_boxes_r_ = back_forward_convert(det_boxes_r_, False)
+
             x_c, y_c, w, h, theta = det_boxes_r_[:, 0], det_boxes_r_[:, 1], det_boxes_r_[:, 2], \
                                     det_boxes_r_[:, 3], det_boxes_r_[:, 4]
-
-            resized_h, resized_w = resized_img.shape[1], resized_img.shape[2]
-
-            x_c = x_c * raw_w / resized_w
-            y_c = y_c * raw_h / resized_h
 
             boxes_r = np.transpose(np.stack([x_c, y_c, w, h, theta]))
 
@@ -104,7 +105,7 @@ def eval(num_imgs, img_dir, image_ext, test_annotation_path):
 
     faster_rcnn = build_whole_network.DetectionNetwork(base_network_name=cfgs.NET_NAME,
                                                        is_training=False)
-    eval_with_plac(img_dir=img_dir, det_net=faster_rcnn, num_imgs=num_imgs, image_ext=image_ext, draw_imgs=True)
+    eval_with_plac(img_dir=img_dir, det_net=faster_rcnn, num_imgs=num_imgs, image_ext=image_ext, draw_imgs=False)
 
     with open(cfgs.VERSION + '_detections_r.pkl') as f2:
         all_boxes_r = pickle.load(f2)
